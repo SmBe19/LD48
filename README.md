@@ -6,8 +6,6 @@ Ludum Dare 48
 [ ] debug stutter
 [ ] prevent new rectangles from overlapping with player
 [ ] show when player has dangerous velocity
-[ ] limit time
-[ ] limit rectangles
 [ ] powerups (time & rectangles)
 [ ] test android
 [ ] music
