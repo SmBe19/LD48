@@ -7,13 +7,12 @@ vec4 sample_pixel(sampler2D tex, vec2 uv) {
 void fragment() {
 	vec2 ps = SCREEN_PIXEL_SIZE;
 	vec4 sur = vec4(0);
-	for (int i = -4; i <= 4; i++) {
-		sur += sample_pixel(TEXTURE, UV + vec2(float(i) * ps.x, 0));
+	for (int dx = -4; dx <= 4; dx++) {
+		for (int dy = -4; dy <= 4; dy++) {
+			sur += sample_pixel(TEXTURE, UV + vec2(float(dx) * ps.x, float(dy) * ps.y));
+		}
 	}
-	for (int i = -4; i <= 4; i++) {
-		sur += sample_pixel(TEXTURE, UV + vec2(0, float(i) * ps.y));
-	}
-	sur /= 18.0;
+	sur /= 81.0;
 
 	vec4 col = texture(TEXTURE, UV);
 

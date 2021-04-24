@@ -1,31 +1,50 @@
 extends Node2D
 
 const obstacle = preload("res://scn/Obstacle.tscn")
+const timeup = preload("res://scn/TimeUp.tscn")
+const rectup = preload("res://scn/RectUp.tscn")
 var rng = RandomNumberGenerator.new()
 
 var last_height = -1800
 var precreate = 2000
 var obst_per_height = 0.1
+var time_per_height = 0.06
+var rect_per_height = 0.03
+var dang_prob = 0.15
 var xrand = 2000
 var rotrand = 0.1
 var create_every = 200
 var headroom = 500
 var remaining_rectangles = Globals.max_rectangles
 
-func place_obstacles():
-	var ppos = $"../Player".position
-	var count = (ppos.y - last_height) * obst_per_height
+func clean_children(ppos):
 	for child in get_children():
 		if child.position.y < ppos.y - headroom:
 			child.queue_free()
+
+func create_obstacles(ppos, count):
 	for i in count:
 		var new_obstacle = obstacle.instance()
 		new_obstacle.rotation = rng.randf_range(-rotrand, rotrand)
 		new_obstacle.position.x = rng.randf_range(-xrand, xrand) + ppos.x
 		new_obstacle.position.y = rng.randf_range(last_height, ppos.y) + precreate
 		new_obstacle.width = rng.randf_range(1, 4)
-		new_obstacle.dangerous = rng.randf() < 0.1
+		new_obstacle.dangerous = rng.randf() < dang_prob
 		add_child(new_obstacle)
+
+func create_powerups(ppos, type, count):
+	for i in count:
+		var new_up = type.instance()
+		new_up.position.x = rng.randf_range(-xrand, xrand) + ppos.x
+		new_up.position.y = rng.randf_range(last_height, ppos.y) + precreate
+		add_child(new_up)
+
+func place_obstacles():
+	var ppos = $"../Player".position
+	clean_children(ppos)
+	create_obstacles(ppos, (ppos.y - last_height) * obst_per_height)
+	create_powerups(ppos, timeup, (ppos.y - last_height) * time_per_height)
+	create_powerups(ppos, rectup, (ppos.y - last_height) * rect_per_height)
 	last_height = ppos.y
 
 func _process(_delta):

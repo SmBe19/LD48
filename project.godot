@@ -23,6 +23,11 @@ Globals="*res://src/Globals.gd"
 window/size/width=540
 window/size/height=960
 
+[layer_names]
+
+2d_physics/layer_1="Default"
+2d_physics/layer_2="Power Ups"
+
 [physics]
 
 common/enable_pause_aware_picking=true

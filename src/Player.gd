@@ -3,7 +3,7 @@ extends RigidBody2D
 var circle_parts = 64
 var radius = 30
 var lines = 4
-var color = Color.lightsalmon setget set_color
+var color = Color.lightblue setget set_color
 var time_color = Color.yellow setget set_time_color
 var rect_color = Color.lightgreen setget set_rect_color
 var max_angle = TAU setget set_max_angle
@@ -122,10 +122,14 @@ func not_move(delta):
 			same_shot = 0
 		last_pos = position
 
-func too_fast(delta):
-	if linear_velocity.distance_squared_to(last_velo) > 100000:
-		print("Player died: too fast")
-		die()
+func fast_shake(delta):
+	var diff = linear_velocity.distance_squared_to(last_velo)
+	if diff > 200000:
+		$"../MainCamera".shake(1)
+	elif diff > 100000:
+		$"../MainCamera".shake(0.5)
+	elif diff > 50000:
+		$"../MainCamera".shake(0.25)
 	last_velo = linear_velocity
 
 func _process(delta):
@@ -133,10 +137,16 @@ func _process(delta):
 		return
 	time(delta)
 	not_move(delta)
-	too_fast(delta)
+	fast_shake(delta)
 
 
 func _on_AmIDie_body_entered(body):
 	if body.is_in_group("dangerous"):
 		print("Player died: dangerous rectangle")
 		die()
+	elif body.is_in_group("timeup"):
+		remaining_time = min(Globals.max_time, remaining_time + 4)
+		body.queue_free()
+	elif body.is_in_group("rectup"):
+		self.remaining_rectangles = min(Globals.max_rectangles, remaining_rectangles + 2)
+		body.queue_free()
