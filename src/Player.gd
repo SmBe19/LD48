@@ -3,16 +3,31 @@ extends RigidBody2D
 var radius = 30
 var lines = 4
 var color = Color.lightsalmon setget set_color
+var max_angle = TAU setget set_max_angle
 
 func set_color(c):
 	color = c
 	update()
 
+func set_max_angle(a):
+	max_angle = a
+	update()
+
 func _draw():
-	draw_circle(Vector2.ZERO, radius, color)
-	draw_circle(Vector2.ZERO, radius - Globals.line_width, Color.black)
+	var parts = 64
+	var last = Vector2(1, 0)
+	for i in parts:
+		var angle = TAU*i/float(parts-1)
+		if angle > max_angle:
+			continue
+		var next = Vector2(cos(angle), sin(angle))
+		draw_line(last * radius, next * radius, color, Globals.line_width, true)
+		last = next
 	for i in lines:
-		draw_line(Vector2.ZERO, Vector2.ZERO + radius * Vector2(cos(2*PI*i/float(lines)), sin(2*PI*i/float(lines))), color, Globals.line_width, true)
+		var angle = TAU*i/float(lines)
+		if angle >= max_angle:
+			continue
+		draw_line(Vector2.ZERO, Vector2.ZERO + radius * Vector2(cos(angle), sin(angle)), color, Globals.line_width, true)
 
 var dead = false
 
@@ -21,16 +36,17 @@ func die():
 		return
 	set_deferred("mode", RigidBody2D.MODE_STATIC)
 	$IDieTween.interpolate_property(self, "color", color, Color(color.r, color.g, color.b, 0), 2)
+	$IDieTween.interpolate_property(self, "max_angle", TAU, 0, 2)
 	$IDieTween.start()
 	var timer = Timer.new()
 	add_child(timer)
-	timer.wait_time = 5
+	timer.wait_time = 3
 	timer.connect("timeout", self, "restart_game")
 	timer.start()
 	dead = true
 
 func restart_game():
-	get_tree().reload_current_scene()
+	var _res = get_tree().reload_current_scene()
 
 var next_shot = 0
 var last_pos = Vector2.ZERO
