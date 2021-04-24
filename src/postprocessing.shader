@@ -1,8 +1,9 @@
 shader_type canvas_item;
 
+uniform int off = 5;
+
 void fragment() {
 	vec2 ps = SCREEN_PIXEL_SIZE;
-	int off = 10;
 	float coeff = 0.;
 	vec4 sur = vec4(0);
 	for (int dx = -off; dx <= off; dx++) {

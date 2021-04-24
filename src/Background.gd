@@ -1,7 +1,7 @@
 extends Node2D
 
-var xcount = 100
-var ycount = 100
+var xcount = 50
+var ycount = 50
 var distance = 100
 
 func _draw():
@@ -20,5 +20,5 @@ var timer = 0
 func _process(delta):
 	timer -= delta
 	if timer < 0:
-		timer = 20
+		timer = 5
 		update()

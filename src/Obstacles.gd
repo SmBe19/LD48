@@ -7,14 +7,14 @@ var rng = RandomNumberGenerator.new()
 
 var last_height = -1800
 var precreate = 2000
-var obst_per_height = 0.1
-var time_per_height = 0.06
-var rect_per_height = 0.03
+var obst_per_height = 0.05
+var time_per_height = 0.03
+var rect_per_height = 0.015
 var dang_prob = 0.15
-var xrand = 2000
+var xrand = 1000
 var rotrand = 0.1
 var create_every = 200
-var headroom = 500
+var headroom = 1000
 
 func clean_children(ppos):
 	for child in get_children():
@@ -56,8 +56,14 @@ var mouse_down = false
 var mouse_start = Vector2.ZERO
 var mouse_rect = null
 
+func get_mouse_pos():
+	var gmp = $"/root/Root/Score".get_global_mouse_position()
+	var corrected = gmp - get_viewport().canvas_transform.origin
+	print(get_viewport().canvas_transform.origin)
+	return corrected
+
 func place_mouse_rect():
-	var pos = get_global_mouse_position()
+	var pos = get_mouse_pos()
 	var dist = mouse_start.distance_to(pos)
 	var wanted_size = dist + 30
 	mouse_rect.width = wanted_size / 30.0
@@ -70,7 +76,7 @@ func _input(event):
 		if event.button_index == BUTTON_LEFT and event.pressed:
 			if $"../Player".remaining_rectangles > 0:
 				mouse_down = true
-				mouse_start = get_global_mouse_position()
+				mouse_start = get_mouse_pos()
 				mouse_rect = obstacle.instance()
 				mouse_rect.color = Color.lightgoldenrod
 				mouse_rect.get_node("Collision").disabled = true
