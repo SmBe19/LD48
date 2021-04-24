@@ -6,3 +6,4 @@ Ludum Dare 48
 - [ ] interesting level generation
 - [ ] music
 - [ ] sounds
+- [ ] icon

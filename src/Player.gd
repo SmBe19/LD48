@@ -30,6 +30,7 @@ func set_rect_color(c):
 
 func set_display_remaining_time(t):
 	display_remaining_time = t
+	$"/root/Root/Time".text = str(int(ceil(t))).pad_zeros(2) + "|" + str(Globals.max_time).pad_zeros(2)
 	update()
 
 func set_remaining_rectangles(r):
@@ -154,4 +155,9 @@ func _on_AmIDie_body_entered(body):
 		body.queue_free()
 	elif body.is_in_group("rectup"):
 		self.remaining_rectangles = min(Globals.max_rectangles, remaining_rectangles + 2)
+		body.queue_free()
+	elif body.is_in_group("supertimeup"):
+		Globals.max_time += 1
+		remaining_time = min(Globals.max_time, remaining_time + 1)
+		self.display_remaining_time = display_remaining_time
 		body.queue_free()
