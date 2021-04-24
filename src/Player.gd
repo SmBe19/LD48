@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+var score = 0
 var circle_parts = 64
 var radius = 30
 var lines = 4
@@ -138,6 +139,10 @@ func _process(delta):
 	time(delta)
 	not_move(delta)
 	fast_shake(delta)
+	score = max(score, int(position.y/8))
+	Globals.all_time_highscore = max(Globals.all_time_highscore, score)
+	$"/root/Root/Score".text = str(score).pad_zeros(6)
+	$"/root/Root/Highscore".text = str(Globals.all_time_highscore).pad_zeros(6)
 
 
 func _on_AmIDie_body_entered(body):

@@ -15,7 +15,6 @@ var xrand = 2000
 var rotrand = 0.1
 var create_every = 200
 var headroom = 500
-var remaining_rectangles = Globals.max_rectangles
 
 func clean_children(ppos):
 	for child in get_children():
@@ -69,7 +68,7 @@ func place_mouse_rect():
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
-			if remaining_rectangles > 0:
+			if $"../Player".remaining_rectangles > 0:
 				mouse_down = true
 				mouse_start = get_global_mouse_position()
 				mouse_rect = obstacle.instance()
@@ -84,8 +83,7 @@ func _input(event):
 				mouse_rect.get_node("Collision").disabled = false
 				mouse_rect.update()
 				mouse_rect = null
-				remaining_rectangles -= 1
-				$"../Player".remaining_rectangles = remaining_rectangles
+				$"../Player".remaining_rectangles -= 1
 
 func _ready():
 	rng.randomize()
