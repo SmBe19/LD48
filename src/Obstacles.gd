@@ -5,8 +5,8 @@ const timeup = preload("res://scn/TimeUp.tscn")
 const rectup = preload("res://scn/RectUp.tscn")
 var rng = RandomNumberGenerator.new()
 
-var last_height = -1800
-var precreate = 2000
+var last_height = -800
+var precreate = 1000
 var obst_per_height = 0.05
 var time_per_height = 0.03
 var rect_per_height = 0.015
@@ -58,8 +58,7 @@ var mouse_rect = null
 
 func get_mouse_pos():
 	var gmp = $"/root/Root/Score".get_global_mouse_position()
-	var corrected = gmp - get_viewport().canvas_transform.origin
-	print(get_viewport().canvas_transform.origin)
+	var corrected = gmp - get_canvas_transform().origin
 	return corrected
 
 func place_mouse_rect():

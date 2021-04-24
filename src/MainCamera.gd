@@ -1,8 +1,17 @@
 extends Camera2D
 
-const camoffset = Vector2(0, 250)
+var camoffset = Vector2(0, 250)
 var shake_duration = 0.0
 var rng = RandomNumberGenerator.new()
+
+func _ready():
+	var rs = $"/root".size
+	var orig = Vector2(540, 960)
+	var prop = rs / orig
+	var height = orig.y
+	if prop.y > prop.x:
+		height = rs.y / prop.x
+	camoffset = Vector2(0, height * 0.25)
 
 func _process(delta):
 	position = $"../Player".position + camoffset
