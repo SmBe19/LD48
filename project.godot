@@ -12,6 +12,8 @@ config_version=4
 
 config/name="Deep Learning Simulator 2021"
 run/main_scene="res://scn/Root.tscn"
+boot_splash/image="res://icon192.png"
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]
