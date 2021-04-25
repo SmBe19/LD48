@@ -9,6 +9,16 @@ script/source = "extends ViewportContainer
 func _ready():
 	if OS.get_name() == \"Android\" or OS.get_name() == \"HTML5\":
 		material = null;
+	if Globals.is_editor:
+		ProjectSettings.set(\"physics/2d/default_gravity\", 0)
+
+var timer = 1
+
+func _process(delta):
+	if Globals.is_editor:
+		timer -= delta
+		if timer < 0:
+			var res = get_tree().reload_current_scene()
 "
 
 [sub_resource type="DynamicFontData" id=4]

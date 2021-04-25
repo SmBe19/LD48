@@ -129,7 +129,6 @@ func not_move(delta):
 		last_pos = position
 
 func fast_shake(_delta):
-	var angle = linear_velocity.angle_to(last_velo)
 	var diff = linear_velocity.distance_squared_to(last_velo)
 	if diff > 200000:
 		$"../MainCamera".shake(1)

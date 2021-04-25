@@ -12,6 +12,8 @@ func _ready():
 	if prop.y > prop.x:
 		height = rs.y / prop.x
 	camoffset = Vector2(0, height * 0.25)
+	if Globals.is_editor:
+		camoffset = Vector2(orig.x/2, orig.y/2)
 
 func _process(delta):
 	position = $"../Player".position + camoffset

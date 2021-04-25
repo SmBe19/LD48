@@ -1,0 +1,24 @@
+{
+  "rects": [
+    {"x": 0, "y": 0, "w": 5, "r": 0, "d": false, "b": false},
+    {"x": 400, "y": 0, "w": 5, "r": 0, "d": false, "b": false},
+    {"x": 200, "y": 200, "w": 5, "r": 0, "d": false, "b": false},
+    {"x": 600, "y": 200, "w": 5, "r": 0, "d": false, "b": false},
+    {"x": 0, "y": 400, "w": 5, "r": 0, "d": false, "b": false},
+    {"x": 400, "y": 400, "w": 5, "r": 0, "d": false, "b": false},
+    {"x": 200, "y": 600, "w": 5, "r": 0, "d": false, "b": false},
+    {"x": 350, "y": 200, "w": 2, "r": 0, "d": true, "b": false},
+    {"x": 350, "y": 200, "w": 2, "r": 0, "d": true, "b": false},
+    {"x": 400, "y": 250, "w": 2, "r": 0, "d": true, "b": false},
+    {"x": 450, "y": 300, "w": 2, "r": 0, "d": true, "b": false},
+    {"x": 200, "y": 500, "w": 2, "r": 0, "d": true, "b": false},
+  ],
+  "powerups": [
+    {"x": 150, "y": 50, "t": "timeup"},
+    {"x": 100, "y": 150, "t": "timeup"},
+    {"x": 70, "y": 250, "t": "timeup"},
+    {"x": 50, "y": 350, "t": "timeup"},
+    {"x": 450, "y": 150, "t": "rectup"},
+    {"x": 500, "y": 250, "t": "supertimeup"},
+  ]
+}
