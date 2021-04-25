@@ -4,14 +4,14 @@ import json
 rects = []
 powerups = []
 
-for i in range(random.randrange(3, 20)):
+for i in range(random.randrange(3, 15)):
     rects.append({
         'x': random.randrange(700),
         'y': random.randrange(700),
         'w': random.uniform(1, 10),
-        'r': random.uniform(-0.5, 0.5),
-        'd': random.random() < 0.1,
-        'b': random.random() < 0.1,
+        'r': random.uniform(-0.4, 0.4),
+        'd': random.random() < 0.2,
+        'b': random.random() < 0.2,
     })
 
 def gen_powerups(t, mi, ma):
@@ -22,8 +22,8 @@ def gen_powerups(t, mi, ma):
             't': t,
         })
 
-gen_powerups('timeup', 5, 10)
-gen_powerups('rectup', 5, 10)
+gen_powerups('timeup', 2, 7)
+gen_powerups('rectup', 2, 7)
 gen_powerups('supertimeup', 0, 2)
 
 lvl = {

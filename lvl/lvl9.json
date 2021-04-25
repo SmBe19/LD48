@@ -1,0 +1,21 @@
+{
+  "rects": [
+    {"x": 200, "y": 300, "w": 15, "r": 0.7, "d": false, "b": false},
+    {"x": 500, "y": 300, "w": 15, "r": -0.7, "d": false, "b": false},
+    {"x": 200, "y": 400, "w": 7, "r": 0.7, "d": true, "b": false},
+    {"x": 500, "y": 400, "w": 7, "r": -0.7, "d": true, "b": false},
+    {"x": 100, "y": 550, "w": 7, "r": 0.5, "d": false, "b": true},
+    {"x": 600, "y": 550, "w": 7, "r": -0.5, "d": false, "b": true},
+  ],
+  "powerups": [
+    {"x": 310, "y": 175, "t": "supertimeup"},
+    {"x": 390, "y": 200, "t": "supertimeup"},
+    {"x": 320, "y": 225, "t": "supertimeup"},
+    {"x": 380, "y": 250, "t": "supertimeup"},
+    {"x": 330, "y": 275, "t": "supertimeup"},
+    {"x": 370, "y": 300, "t": "supertimeup"},
+    {"x": 340, "y": 325, "t": "supertimeup"},
+    {"x": 360, "y": 350, "t": "supertimeup"},
+    {"x": 350, "y": 375, "t": "supertimeup"},
+  ]
+}
