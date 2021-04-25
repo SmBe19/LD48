@@ -53,12 +53,12 @@ func place_obstacles():
 	while last_height_gen <= ppos.y + Globals.lvl_precreate * Globals.lvl_box.y:
 		var playerx = round(ppos.x / Globals.lvl_box.x) * Globals.lvl_box.x
 		for i in range(-Globals.lvl_gen_x, Globals.lvl_gen_x+1):
-			var lvl = rng.randi_range(1, Globals.lvl_count)
+			var lvl = rng.randi_range(1, Globals.lvl_count+1)
 			var mirrored = rng.randf() < 0.5
 			if Globals.is_editor:
 				lvl = Globals.editor_lvl
 				mirrored = Input.is_action_pressed("ui_select")
-			add_lvl(lvl, playerx + i * Globals.lvl_box.y, last_height_gen, mirrored)
+			add_lvl(lvl, playerx + i * Globals.lvl_box.x, last_height_gen, mirrored)
 		last_height_gen += Globals.lvl_box.y
 
 func _process(delta):
