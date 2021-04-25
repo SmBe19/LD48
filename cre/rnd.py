@@ -31,5 +31,5 @@ lvl = {
     'powerups': powerups,
 }
 
-with open('lvl/lvl1.json', 'w') as f:
+with open('lvl/lvl0.json', 'w') as f:
     json.dump(lvl, f, indent=2)
