@@ -12,6 +12,8 @@ var remaining_time = Globals.max_time
 var display_remaining_time = Globals.max_time setget set_display_remaining_time
 var remaining_rectangles = Globals.max_rectangles setget set_remaining_rectangles
 
+var rng = RandomNumberGenerator.new()
+
 func set_color(c):
 	color = c
 	update()
@@ -108,6 +110,7 @@ func time(delta):
 		self.display_remaining_time = remaining_time
 		last_time_upd_disp_time = remaining_time
 	if remaining_time < 0:
+		$Audio/Notime.play()
 		print("Player died: time ran out")
 		die()
 
@@ -119,12 +122,14 @@ func not_move(delta):
 			same_shot += 1
 			if same_shot > 3:
 				print("Player died: did not move")
+				$Audio/Stuck.play()
 				die()
 		else:
 			same_shot = 0
 		last_pos = position
 
 func fast_shake(_delta):
+	var angle = linear_velocity.angle_to(last_velo)
 	var diff = linear_velocity.distance_squared_to(last_velo)
 	if diff > 200000:
 		$"../MainCamera".shake(1)
@@ -132,6 +137,8 @@ func fast_shake(_delta):
 		$"../MainCamera".shake(0.5)
 	elif diff > 50000:
 		$"../MainCamera".shake(0.25)
+	if diff > 50000:
+		$Audio/Heavy.play()
 	last_velo = linear_velocity
 
 func _process(delta):
@@ -149,15 +156,21 @@ func _process(delta):
 func _on_AmIDie_body_entered(body):
 	if body.is_in_group("dangerous"):
 		print("Player died: dangerous rectangle")
+		$Audio/Dangerous.play()
 		die()
 	elif body.is_in_group("timeup"):
 		remaining_time = min(Globals.max_time, remaining_time + 4)
+		$Audio/Time.play()
 		body.queue_free()
 	elif body.is_in_group("rectup"):
 		self.remaining_rectangles = min(Globals.max_rectangles, remaining_rectangles + 2)
+		$Audio/Rect.play()
 		body.queue_free()
 	elif body.is_in_group("supertimeup"):
 		Globals.max_time += 1
 		remaining_time = min(Globals.max_time, remaining_time + 1)
 		self.display_remaining_time = display_remaining_time
+		$Audio/Supertime.play()
 		body.queue_free()
+	elif body.is_in_group("obstacle"):
+		get_node("Audio/Light" + str(rng.randi_range(1, 4))).play()

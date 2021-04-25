@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/dangerous.wav-53bf9cc5004a7b88097b4506fefc3ad1.sample"
+
+[deps]
+
+source_file="res://snd/dangerous.wav"
+dest_files=[ "res://.import/dangerous.wav-53bf9cc5004a7b88097b4506fefc3ad1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

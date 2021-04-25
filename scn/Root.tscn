@@ -3,7 +3,7 @@
 [ext_resource path="res://scn/Game.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/postprocessing.tres" type="Material" id=2]
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id=1]
 script/source = "extends ViewportContainer
 
 func _ready():
@@ -11,20 +11,20 @@ func _ready():
 		material = null;
 "
 
-[sub_resource type="DynamicFontData" id=2]
+[sub_resource type="DynamicFontData" id=4]
 font_path = "res://fnt/DIGITALDREAM.ttf"
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=5]
 size = 50
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
-font_data = SubResource( 2 )
+font_data = SubResource( 4 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=6]
 size = 24
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
-font_data = SubResource( 2 )
+font_data = SubResource( 4 )
 
 [node name="Root" type="Node"]
 
@@ -33,7 +33,7 @@ material = ExtResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 stretch = true
-script = SubResource( 5 )
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -45,6 +45,7 @@ fxaa = true
 disable_3d = true
 usage = 0
 render_target_update_mode = 3
+audio_listener_enable_2d = true
 
 [node name="Game" parent="ViewportContainer/Viewport" instance=ExtResource( 1 )]
 
@@ -52,7 +53,7 @@ render_target_update_mode = 3
 anchor_right = 1.0
 margin_top = 77.0
 margin_bottom = 147.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
@@ -66,7 +67,7 @@ __meta__ = {
 anchor_right = 1.0
 margin_top = 30.0
 margin_bottom = 100.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
@@ -80,7 +81,7 @@ __meta__ = {
 anchor_right = 1.0
 margin_top = 867.438
 margin_bottom = 937.438
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 2
 custom_constants/shadow_offset_y = 2
