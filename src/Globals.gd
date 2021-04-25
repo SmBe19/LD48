@@ -4,6 +4,8 @@ var line_width = 2
 var max_time = 20.0
 var max_rectangles = 12
 
+var mouse_down_delay = 0.15
+
 var lvl_count = 20
 var lvl_box = Vector2(750, 750)
 var lvl_precreate = 1

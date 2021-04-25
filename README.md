@@ -3,5 +3,4 @@ Ludum Dare 48
 
 ## TODO
 
-- [ ] interesting level generation
 - [ ] music

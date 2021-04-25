@@ -7,8 +7,10 @@ var rng = RandomNumberGenerator.new()
 var last_height_gen = 200
 var clean_children_timer = 0
 var mouse_down = false
+var mouse_down_since = 0
 var mouse_start = Vector2.ZERO
 var mouse_rect = null
+var mouse_obst = null
 
 func clean_children(delta):
 	clean_children_timer -= delta
@@ -65,7 +67,11 @@ func _process(delta):
 	place_obstacles()
 	clean_children(delta)
 	if mouse_down:
-		place_mouse_rect()
+		mouse_down_since += delta
+		if mouse_down_since >= Globals.mouse_down_delay and mouse_rect == null:
+				create_mouse_rect()
+		if mouse_rect != null:
+			place_mouse_rect()
 
 func get_mouse_pos():
 	var gmp = $"/root/Root/Score".get_global_mouse_position()
@@ -81,25 +87,45 @@ func place_mouse_rect():
 	var angle = mouse_start.angle_to_point(pos)
 	mouse_rect.rotation = angle
 
+func create_mouse_rect():
+	mouse_obst = null
+	mouse_rect = obstacle.instance()
+	mouse_rect.color = Color.lightgoldenrod
+	mouse_rect.get_node("Collision").disabled = true
+	place_mouse_rect()
+	add_child(mouse_rect)
+
+func get_obstacle_from_mouse():
+	var objects = get_world_2d().direct_space_state.intersect_point(get_mouse_pos())
+	for o in objects:
+		if o.collider.is_in_group("obstacle") and not o.collider.is_in_group("dangerous"):
+			return o.collider
+	return null
+
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_LEFT and event.pressed:
-			if $"../Player".remaining_rectangles > 0:
+			mouse_down_since = 0
+			if $"../Player".remaining_rectangles >= 2:
+				mouse_obst = get_obstacle_from_mouse()
+			if $"../Player".remaining_rectangles >= 1:
 				mouse_down = true
 				mouse_start = get_mouse_pos()
-				mouse_rect = obstacle.instance()
-				mouse_rect.color = Color.lightgoldenrod
-				mouse_rect.get_node("Collision").disabled = true
-				place_mouse_rect()
-				add_child(mouse_rect)
+				if mouse_obst == null:
+					create_mouse_rect()
 		elif event.button_index == BUTTON_LEFT and not event.pressed:
 			if mouse_down:
 				mouse_down = false
+			if mouse_rect != null:
 				mouse_rect.color = Color.aqua
 				mouse_rect.get_node("Collision").disabled = false
 				mouse_rect.update()
-				mouse_rect = null
 				$"../Player".remaining_rectangles -= 1
+			elif mouse_obst != null and mouse_down_since < Globals.mouse_down_delay:
+				mouse_obst.queue_free()
+				$"../Player".remaining_rectangles -= 2
+			mouse_rect = null
+			mouse_obst = null
 
 func _ready():
 	rng.randomize()
