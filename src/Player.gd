@@ -85,7 +85,7 @@ func die():
 	timer.start()
 
 func restart_game():
-	var _res = get_tree().reload_current_scene()
+	$"/root/Root/ViewportContainer".restart()
 
 var next_shot = 0
 var last_pos = Vector2.ZERO
